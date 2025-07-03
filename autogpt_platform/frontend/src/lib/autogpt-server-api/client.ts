@@ -509,6 +509,16 @@ export default class BackendAPI {
     return this._uploadFile("/store/submissions/media", file);
   }
 
+  annotateVcf(file: File): Promise<any> {
+    return this._uploadFile("/vcf/annotate", file).then((t) => {
+      try {
+        return JSON.parse(t);
+      } catch {
+        return t;
+      }
+    });
+  }
+
   updateStoreProfile(profile: ProfileDetails): Promise<ProfileDetails> {
     return this._request("POST", "/store/profile", profile);
   }

@@ -15,6 +15,7 @@ from typing_extensions import Optional, TypedDict
 
 import backend.server.integrations.router
 import backend.server.routers.analytics
+import backend.server.routers.vcf
 import backend.server.v2.library.db as library_db
 from backend.data import execution as execution_db
 from backend.data import graph as graph_db
@@ -113,6 +114,13 @@ v1_router.include_router(
     backend.server.routers.analytics.router,
     prefix="/analytics",
     tags=["analytics"],
+    dependencies=[Depends(auth_middleware)],
+)
+
+v1_router.include_router(
+    backend.server.routers.vcf.router,
+    prefix="/vcf",
+    tags=["vcf"],
     dependencies=[Depends(auth_middleware)],
 )
 
